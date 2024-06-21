@@ -29,7 +29,7 @@
         <!-- Версія Java, на основі якої збирається проект -->
         <maven.compiler.release>21</maven.compiler.release>
         <!-- Головний клас програми -->
-        <app.mainClass>at.syntaxerror.ieee754.IEEE754_Numbers_Demo</app.mainClass>
+        <app.mainClass>com.rutar.ieee754_numbers.IEEE754_Numbers_Demo</app.mainClass>
     </properties>
     
     <repositories>
@@ -43,6 +43,13 @@
     </repositories>
 
     <dependencies>
+        
+        <!-- Бібліотека для розрахунку логарифмів BigDecimal чисел -->
+        <dependency>
+            <groupId>ch.obermuhlner</groupId>
+            <artifactId>big-math</artifactId>
+            <version>2.3.2</version>
+        </dependency>
         
         <!-- Виконання системних команд -->
         <dependency>

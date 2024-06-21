@@ -1,4 +1,4 @@
-package at.syntaxerror.ieee754;
+package com.rutar.ieee754_numbers;
 
 import java.awt.*;
 import javax.swing.*;

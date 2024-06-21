@@ -1,4 +1,4 @@
-package at.syntaxerror.ieee754;
+package com.rutar.ieee754_numbers;
 
 import java.io.*;
 import org.junit.jupiter.api.*;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class IEEE754_Numbers_Test {
 
 private static final String RESOURCES_PATH =
-    "src/test/resources/at/syntaxerror/ieee754/";
+    "src/test/resources/com/rutar/ieee754_numbers/";
 
 ///////////////////////////////////////////////////////////////////////////////
 
