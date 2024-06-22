@@ -1,15 +1,17 @@
 package com.rutar.ieee754_numbers;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-
 // ............................................................................
 
+import at.syntaxerror.ieee754.binary.Binary80;
+import java.awt.*;
+import java.math.BigInteger;
+import javax.swing.*;
+
 /**
- * Клас IEEE754_Numbers_Demo
+ * Клас IEEE754_Numbers_Demo.
+ * Демонструє роботу бібліотеки IEEE754_Numbers
  * @author Rutar_Andriy
- * 21.06.2024
+ * 22.06.2024
  */
 
 public class IEEE754_Numbers_Demo extends JFrame {
@@ -20,124 +22,142 @@ public IEEE754_Numbers_Demo() { initComponents(); }
 
 ///////////////////////////////////////////////////////////////////////////////
 
-private void initComponents() {
+@SuppressWarnings("unchecked")
+    private void initComponents() {//GEN-BEGIN:initComponents
 
-label_hint    = new JLabel();
-field_input   = new JTextField();
-btn_random    = new JButton();
-sep           = new JSeparator();
-panel_buttons = new JPanel();
-btn_sum       = new JButton();
-btn_product   = new JButton();
-btn_aMean     = new JButton();
-btn_qMean     = new JButton();
+        lbl_double = new JLabel();
+        fld_double = new JTextField();
+        sp_double = new JSeparator();
+        lbl_extended = new JLabel();
+        fld_e0 = new JTextField();
+        fld_e1 = new JTextField();
+        fld_e2 = new JTextField();
+        fld_e3 = new JTextField();
+        fld_e4 = new JTextField();
+        fld_e5 = new JTextField();
+        fld_e6 = new JTextField();
+        fld_e7 = new JTextField();
+        fld_e8 = new JTextField();
+        fld_e9 = new JTextField();
+        sp_e9 = new JSeparator();
+        pnl_buttons = new JPanel();
+        btn_convert = new JButton();
+        btn_clean = new JButton();
 
-setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-setTitle("IEEE754_Numbers Demo");
-setPreferredSize(new Dimension(500, 91));
-setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("IEEE754 Numbers Demo");
+        setResizable(false);
 
-label_hint.setHorizontalAlignment(SwingConstants.CENTER);
-label_hint.setText("Введіть числа, розділяючи їх комою");
+        lbl_double.setText("Число у форматі Double");
 
-field_input.setHorizontalAlignment(JTextField.CENTER);
+        lbl_extended.setText("Число у форматі Extended");
 
-btn_random.setText("<html><body align=\"center\">Згенерувати<br/>випадкові числа</body></html>");
-btn_random.setToolTipText("<html><body align=\"center\">Згенерувати випадкову кількість<br/>випадкових чисел</body></html>");
-btn_random.setActionCommand("btn_random");
-btn_random.setMargin(new Insets(2, 9, 2, 9));
-btn_random.addActionListener(this::onButtonClick);
+        fld_e0.setHorizontalAlignment(JTextField.CENTER);
 
-panel_buttons.setLayout(new GridLayout(1, 0));
+        fld_e1.setHorizontalAlignment(JTextField.CENTER);
 
-btn_sum.setText("Сума");
-btn_sum.setToolTipText("Розрахувати суму введених чисел");
-btn_sum.setActionCommand("btn_sum");
-btn_sum.addActionListener(this::onButtonClick);
-panel_buttons.add(btn_sum);
+        fld_e2.setHorizontalAlignment(JTextField.CENTER);
 
-btn_product.setText("Добуток");
-btn_product.setToolTipText("Розрахувати добуток введених чисел");
-btn_product.setActionCommand("btn_product");
-btn_product.addActionListener(this::onButtonClick);
-panel_buttons.add(btn_product);
+        fld_e3.setHorizontalAlignment(JTextField.CENTER);
 
-btn_aMean.setText("x̅");
-btn_aMean.setToolTipText("Розрахувати середнє арифметичне значення");
-btn_aMean.setActionCommand("btn_aMean");
-btn_aMean.addActionListener(this::onButtonClick);
-panel_buttons.add(btn_aMean);
+        fld_e4.setHorizontalAlignment(JTextField.CENTER);
 
-btn_qMean.setText("x(rms)");
-btn_qMean.setToolTipText("Розрахувати середнє квадратичне значення");
-btn_qMean.setActionCommand("btn_qMean");
-btn_qMean.addActionListener(this::onButtonClick);
-panel_buttons.add(btn_qMean);
+        fld_e5.setHorizontalAlignment(JTextField.CENTER);
 
-GroupLayout layout = new GroupLayout(getContentPane());
-getContentPane().setLayout(layout);
-layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(layout.createSequentialGroup()
-        .addGap(5, 5, 5)
-        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addComponent(sep)
+        fld_e6.setHorizontalAlignment(JTextField.CENTER);
+
+        fld_e7.setHorizontalAlignment(JTextField.CENTER);
+
+        fld_e8.setHorizontalAlignment(JTextField.CENTER);
+
+        fld_e9.setHorizontalAlignment(JTextField.CENTER);
+
+        pnl_buttons.setLayout(new GridLayout(1, 0, 5, 0));
+
+        btn_convert.setText("Перетворити");
+        btn_convert.setActionCommand("btn_convert");
+        pnl_buttons.add(btn_convert);
+
+        btn_clean.setText("Очистити поля");
+        btn_clean.setActionCommand("btn_clean");
+        pnl_buttons.add(btn_clean);
+
+        GroupLayout layout = new GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(label_hint, GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
-                    .addComponent(field_input))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_random, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-            .addComponent(panel_buttons, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        .addGap(5, 5, 5))
-);
-layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-    .addGroup(layout.createSequentialGroup()
-        .addGap(5, 5, 5)
-        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-            .addComponent(btn_random)
+                    .addComponent(sp_e9)
+                    .addComponent(sp_double)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_extended)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(fld_e0, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e1, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e4, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e5, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e6, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e7, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fld_e9, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 4, Short.MAX_VALUE))
+                    .addComponent(fld_double)
+                    .addComponent(lbl_double, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(7, 7, 7))
             .addGroup(layout.createSequentialGroup()
-                .addComponent(label_hint)
+                .addGap(7, 7, 7)
+                .addComponent(pnl_buttons, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(7, 7, 7))
+        );
+        layout.setVerticalGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(7, 7, 7)
+                .addComponent(lbl_double)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(field_input, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(sep, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-        .addComponent(panel_buttons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-);
+                .addComponent(fld_double, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sp_double, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbl_extended)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                    .addComponent(fld_e0, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e2, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e3, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e4, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e5, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e6, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e7, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e8, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fld_e9, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sp_e9, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnl_buttons, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addGap(7, 7, 7))
+        );
 
-pack();
-setLocationRelativeTo(null);
-
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-private void onButtonClick (ActionEvent evt) {
-    
-    String command = ((JButton)evt.getSource()).getActionCommand();
-    
-    if (command.equals("btn_random")) { generateRandomNumbers();
-                                        return; }
-    
-    int checkInput = checkInput();
-    if (checkInput > 0) { showErrorMessage(checkInput);
-                          return; }
-    
-    switch (command) {
-        case "btn_sum"     -> showResultMessage(0);
-        case "btn_product" -> showResultMessage(1);
-        case "btn_aMean"   -> showResultMessage(2);
-        case "btn_qMean"   -> showResultMessage(3);
-    }
-}
+        pack();
+        setLocationRelativeTo(null);
+    }//GEN-END:initComponents
 
 ///////////////////////////////////////////////////////////////////////////////
 
-public static void main(String args[]) {
-
-    // Правила оформлення проектів описані тут:
-    // https://github.com/RutarAndriy/My_Coding_Rules
+public static void main (String args[]) {
 
     EventQueue.invokeLater(() -> {
         new IEEE754_Numbers_Demo().setVisible(true);
@@ -146,130 +166,26 @@ public static void main(String args[]) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-private JLabel     label_hint;
-private JTextField field_input;
-private JButton    btn_random;
-private JSeparator sep;
-private JPanel     panel_buttons;
-private JButton    btn_sum;
-private JButton    btn_product;
-private JButton    btn_aMean;
-private JButton    btn_qMean;
-
-///////////////////////////////////////////////////////////////////////////////
-
-private int checkInput() {
-
-    String input = field_input.getText().replaceAll(" ", "");
-
-    if (input.isBlank())     { return 1; }
-    if (input.endsWith(",")) { return 2; }
-
-    String[] split = input.split(",");
-
-    for (String value : split) {
-        try { double D = Double.parseDouble(value);
-              int    I = Integer.parseInt(value);
-              if (D - I > 0)            { return 2; } }
-        catch (NumberFormatException e) { return 2; }
-    }
-
-    return 0;
-
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-private int[] getNumbers() {
-    
-    String input = field_input.getText().replaceAll(" ", "");
-    String[] split = input.split(",");
-    int[] numbers = new int[split.length];
-
-    for (int z = 0; z < split.length; z++) {
-        numbers[z] = Integer.parseInt(split[z]);
-    }
-
-    return numbers;
-
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-private void generateRandomNumbers() {
-            
-    int random;
-    String input;
-
-    field_input.setText(null);
-    int count = (int)(Math.random() * 7) + 5;
-
-    for (int z = 0; z < count; z++) {
-        random = (int)(Math.random() * 40) - 10;
-        input = field_input.getText();
-        field_input.setText(input + (input.isEmpty() ? "" : ", ") + random);
-    }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-private void showResultMessage (int resultCode) {
-
-    String text;
-    String message;
-    Number result;
-
-    Color background = field_input.getBackground();
-    field_input.setBackground(new Color(0xff66));
-
-    String numbers = field_input.getText().replaceAll(" ", "")
-                                          .replaceAll(",", ", ");
-
-    field_input.setText(numbers);
-
-    switch (resultCode) {
-        case 0 ->
-            { text = "Сума чисел\n(%s)\nдорівнює %d";
-              result = IEEE754_Numbers.sum(getNumbers()); }
-        case 1 ->
-            { text = "Добуток чисел\n(%s)\nдорівнює %d";
-              result = IEEE754_Numbers.product(getNumbers()); }
-        case 2 ->
-            { text = "Середнє арифметичне значення чисел\n(%s)\nдорівнює %.3f";
-              result = IEEE754_Numbers.arithmeticMean(getNumbers()); }
-        default ->
-            { text = "Середнє квадратичне значення чисел\n(%s)\nдорівнює %.3f";
-              result = IEEE754_Numbers.quadraticMean(getNumbers()); }
-    }
-
-    message = String.format(text, numbers, result);
-    JOptionPane.showMessageDialog(btn_product, message,
-                                 "Рузультат", JOptionPane.PLAIN_MESSAGE);
-
-    field_input.setBackground(background);
-
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-private void showErrorMessage (int errorCode) {
-
-    Color background = field_input.getBackground();
-    field_input.setBackground(new Color(0xff6666));
-
-    String message = null;
-
-    switch (errorCode) {
-        case 1 -> message = "Поле введення не\nмістить жодних даних";
-        case 2 -> message = "Помилка вводу.\nДопускаються тільки цілі числа";
-    }
-
-    JOptionPane.showMessageDialog(btn_product, message,
-                                 "Помилка", JOptionPane.ERROR_MESSAGE);
-
-    field_input.setBackground(background);
-
-}
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private JButton btn_clean;
+    private JButton btn_convert;
+    private JTextField fld_double;
+    private JTextField fld_e0;
+    private JTextField fld_e1;
+    private JTextField fld_e2;
+    private JTextField fld_e3;
+    private JTextField fld_e4;
+    private JTextField fld_e5;
+    private JTextField fld_e6;
+    private JTextField fld_e7;
+    private JTextField fld_e8;
+    private JTextField fld_e9;
+    private JLabel lbl_double;
+    private JLabel lbl_extended;
+    private JPanel pnl_buttons;
+    private JSeparator sp_double;
+    private JSeparator sp_e9;
+    // End of variables declaration//GEN-END:variables
 
 // Кінець класу IEEE754_Numbers_Demo //////////////////////////////////////////
 
