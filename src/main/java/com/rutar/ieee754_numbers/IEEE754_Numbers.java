@@ -2,8 +2,15 @@ package com.rutar.ieee754_numbers;
 
 // ............................................................................
 
+import java.math.*;
+import at.syntaxerror.ieee754.binary.*;
+
 /**
  * Клас IEEE754_Numbers
+ * Дозволяє виконувати перетворення із/у Extended-формат.
+ * Базується на бібліотеці 
+ * <a href="https://github.com/Synt4xErr0r4/ieee754-java">ieee754-java</a> 
+ * пана <a href="https://github.com/Synt4xErr0r4">Synt4xErr0r4</a> 
  * @author Rutar_Andriy
  * 21.06.2024
  */
@@ -13,93 +20,49 @@ public class IEEE754_Numbers {
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Метод підраховує суму вхідних чисел
- * @param numbers масив/перелік вхідних чисел
- * @return сума вхідних чисел
+ * Конвертація із double у Extended (представленого у байтах)
+ * @param value число типу double
+ * @return число типу Extended (представлене у байтах)
  */
-public static long sum (int ... numbers) {
+public static byte[] doubleToExtendedBytes (double value) {
+    
+    return reverseArray(Binary80.CODEC
+          .encode(Binary80.FACTORY.create(value)).toByteArray());
 
-    if (numbers == null) { throw new NullPointerException(); }
-    else if (numbers.length == 0) { throw new IllegalArgumentException(); }
-    else if (numbers.length == 1) { return numbers[0]; }
-
-    else {
-
-        long result = numbers[0];
-
-        for (int z = 1; z < numbers.length; z++) {
-            result += numbers[z];
-        }
-
-        return result;
-    }    
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Метод підраховує добуток вхідних чисел
- * @param numbers масив/перелік вхідних чисел
- * @return добуток вхідних чисел
+ * Конвертація із Extended (представленого у байтах) у double
+ * @param arr число типу Extended (представлене у байтах)
+ * @return число типу double
  */
-public static long product (int ... numbers) {
+public static double extendedBytesToDouble (byte[] arr) {
+    
+    return Binary80.CODEC
+          .decode(new BigInteger(reverseArray(arr))).doubleValue();
 
-    if (numbers == null) { throw new NullPointerException(); }
-    else if (numbers.length == 0) { throw new IllegalArgumentException(); }
-    else if (numbers.length == 1) { return numbers[0]; }
-
-    else {
-
-        long result = numbers[0];
-
-        for (int z = 1; z < numbers.length; z++) {
-            result *= numbers[z];
-        }
-
-        return result;
-    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
- * Метод рахує середнє арифметичне значення
- * @param numbers масив/перелік вхідних чисел
- * @return середнє арифметичне значення
+ * Інверсія (перевертання) byte-масиву
+ * @param arr byte-масив для інверсії
+ * @return результат інверсії
  */
-public static double arithmeticMean (int ... numbers) {
-
-    if (numbers == null) { throw new NullPointerException(); }
-    else if (numbers.length == 0) { throw new IllegalArgumentException(); }
-    else if (numbers.length == 1) { return numbers[0]; }
-
-    else {
-
-        return sum(numbers) * 1d / numbers.length;
-
+public static byte[] reverseArray (byte[] arr) {
+    
+    byte temp;
+    byte[] result = arr.clone();
+    
+    for (int z = 0; z < result.length / 2; z++) {
+        temp = result[z];
+        result[z] = result[result.length - 1 - z];
+        result[result.length - 1 - z] = temp;
     }
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-/**
- * Метод рахує середнє квадратичне значення
- * @param numbers масив/перелік вхідних чисел
- * @return середнє квадратичне значення
- */
-public static double quadraticMean (int ... numbers) {
-
-    if (numbers == null) { throw new NullPointerException(); }
-    else if (numbers.length == 0) { throw new IllegalArgumentException(); }
-    else if (numbers.length == 1) { return numbers[0]; }
-
-    else {
-
-        for (int z = 0; z < numbers.length; z++)
-            { numbers[z] *= numbers[z]; }
-        
-        return Math.sqrt(sum(numbers) * 1d / numbers.length);
-    }
+    return result;
 }
 
 // Кінець класу IEEE754_Numbers ///////////////////////////////////////////////
