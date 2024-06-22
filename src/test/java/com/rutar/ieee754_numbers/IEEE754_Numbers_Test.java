@@ -1,11 +1,13 @@
 package com.rutar.ieee754_numbers;
 
 import java.io.*;
+import java.util.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.*;
 import org.junit.jupiter.params.provider.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static com.rutar.ieee754_numbers.IEEE754_Numbers.*;
 
 // ............................................................................
 
@@ -44,102 +46,67 @@ class Library_Test {
 
     // ........................................................................
 
-    @Test
-    @DisplayName("1 + 1 = 2")
-    void one_Plus_One() {
-        assertEquals(2, IEEE754_Numbers.sum(1, 1));
-    }
-
+    @DisplayName("decodeOnly") // byte[] -> double
+    @ParameterizedTest(name = "({0}) -> [{1}]")
+    @CsvSource(
+        value = { "00 00 00 00 00 00 00 C0 02 40 >                 12",
+                  "00 00 00 00 00 00 00 FA 07 40 >                500", 
+                  "34 33 33 33 33 33 33 B3 FE BF >               -0.7", 
+                  "9A 99 99 99 99 99 99 D9 FF BF >               -1.7", 
+                  "F7 EA 49 26 D6 21 4C D9 03 C0 > -27.16217391304348", 
+                  "32 9F A9 96 27 88 82 8E 04 C0 > -35.62747251374313", 
+                  "15 72 A2 D0 84 C0 2E F0 11 40 > 491894.01621276594", 
+                  "86 1B D7 32 0F 26 AD 9D 15 40 >  5166739.029684755" },
+        delimiter = '>')
+    void decodeOnly (String array, double expected)
+        { byte[] bytes = HexFormat.of().parseHex(array.replaceAll(" ", ""));
+          double result = extendedBytesToDouble(bytes);
+          assertEquals(result, expected, 0.000001); }
+    
     // ........................................................................
 
-    @DisplayName("sum")
-    @ParameterizedTest(name = "({0} + {1}) = {2}")
+    @DisplayName("encodeOnly") // double -> byte[]
+    @ParameterizedTest(name = "({0}) <- [{1}]")
     @CsvSource(
-        { "   -1,  -1,  -2 ",
-          "   16,   9,  25 ",
-          "   -8,  15,   7 ",
-          "   61, 304, 365 ",
-          " 1024, -83, 941 "  })
-    void sum (int n1, int n2, int sum)
-        { assertEquals(sum, IEEE754_Numbers.sum(n1, n2)); }
-
+        value = { "00 00 00 00 00 00 00 C0 02 40 <                 12",
+                  "00 00 00 00 00 00 00 FA 07 40 <                500", 
+                  "34 33 33 33 33 33 33 B3 FE BF <               -0.7", 
+                  "9A 99 99 99 99 99 99 D9 FF BF <               -1.7", 
+                  "F7 EA 49 26 D6 21 4C D9 03 C0 < -27.16217391304348", 
+                  "32 9F A9 96 27 88 82 8E 04 C0 < -35.62747251374313", 
+                  "15 72 A2 D0 84 C0 2E F0 11 40 < 491894.01621276594", 
+                  "86 1B D7 32 0F 26 AD 9D 15 40 <  5166739.029684755" },
+        delimiter = '<')
+    void encodeOnly (String array, double number)
+        { byte[] result = doubleToExtendedBytes(number);
+          byte[] expected = HexFormat.of().parseHex(array.replaceAll(" ", ""));
+          boolean equals = Arrays.equals(result, expected);
+          if (equals == false) {
+              double resultNumber   = extendedBytesToDouble(result);
+              double expectedNumber = extendedBytesToDouble(expected);
+              assertEquals(resultNumber, expectedNumber, 0.000001);
+          }
+          else { assertTrue(equals); } }
+    
     // ........................................................................
 
-    @DisplayName("sum")
-    @ParameterizedTest(name = "({0} + {1} + {2} + {3} + {4}) = {5}")
+    @DisplayName("encodeAndDecode") // double -> byte[] -> double
+    @ParameterizedTest(name = "({0})")
     @CsvSource(
-        { "    1,    2,   3,    4,   5,  15 ",
-          "   10,    9,   8,    7,   6,  40 ",
-          " 1000, -900, 800, -700, 600, 800 " })
-    void sum (int n1, int n2, int n3, int n4, int n5, int sum)
-        { assertEquals(sum, IEEE754_Numbers.sum(n1, n2, n3, n4, n5)); }
-
-    // ........................................................................
-
-    @DisplayName("product")
-    @ParameterizedTest(name = "({0} * {1}) = {2}")
-    @CsvSource(
-        { "    2,  3,    6 ",
-          "    6,  8,   48 ",
-          "   -7, -3,   21 ",
-          "   63,  0,    0 ",
-          " 1024,  8, 8192 "  })
-    void product (int n1, int n2, int product)
-        { assertEquals(product, IEEE754_Numbers.product(n1, n2)); }
-
-    // ........................................................................
-
-    @DisplayName("product")
-    @ParameterizedTest(name = "({0} * {1} * {2} * {3} * {4}) = {5}")
-    @CsvSource(
-        { "  1,  1,  1,  1,  1,      1 ",
-          "  3,  5,  7,  9, 11,  10395 ",
-          " 10, 10, 10, 10, 10, 100000 " })
-    void product (int n1, int n2, int n3, int n4, int n5, int product)
-        { assertEquals(product, IEEE754_Numbers.product(n1, n2, n3, n4, n5)); }
-
-    // ........................................................................
-
-    @DisplayName("arithmeticMean")
-    @ParameterizedTest(name = "({0}, {1}, {2}, {3}, {4}) = {5}")
-    @CsvSource(
-        { "  3, 5,  7,   9, 11,  7.0 ",
-          "  2, 5,  7,   9, 11,  6.8 ",
-          " 16, 4, 26, 167, -7, 41.2 " })
-    void arithmeticMean (int n1, int n2, int n3, int n4, int n5, double mean)
-        { assertEquals(mean, IEEE754_Numbers
-         .arithmeticMean(n1, n2, n3, n4, n5), 0.001); }
-
-    // ........................................................................
-
-    @DisplayName("quadraticMean")
-    @ParameterizedTest(name = "({0}, {1}, {2}, {3}, {4}) = {5}")
-    @CsvSource(
-        { "  1, 1,  1,   1,  1,      1 ",
-          "  3, 5,  7,   9, 11,  7.550 ",
-          " 16, 4, 96, 103, -5, 63.438 " })
-    void quadraticMean (int n1, int n2, int n3, int n4, int n5, double mean)
-        { assertEquals(mean, IEEE754_Numbers
-         .quadraticMean(n1, n2, n3, n4, n5), 0.001); }
+        value = { "-784.234",
+                  "-34.7",
+                  "-4",
+                  "0",
+                  "2",
+                  "3.1415",
+                  "96.157",
+                  "278965.237578" })
+    void encodeAndDecode (double expected)
+        { byte[] bytes  = doubleToExtendedBytes(expected);
+          double result = extendedBytesToDouble(bytes);
+          assertEquals(result, expected, 0.000001); }
 
 }
-
-///////////////////////////////////////////////////////////////////////////////
-    
-// @Test
-// @Disabled("skipped")
-// @DisplayName("Should skip")
-// void should_Skip() {
-//     fail("This error will be skipped");
-// }
-
-///////////////////////////////////////////////////////////////////////////////
-
-// @Test
-// @DisplayName("Should fail")
-// void should_Fail() {
-//     fail("Some error ...");
-// }
 
 // Кінець класу IEEE754_Numbers_Test //////////////////////////////////////////
 
