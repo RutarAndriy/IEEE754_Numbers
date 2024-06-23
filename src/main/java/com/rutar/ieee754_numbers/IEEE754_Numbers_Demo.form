@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="IEEE754 Numbers Demo"/>
@@ -25,8 +25,8 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="sp_e9" max="32767" attributes="0"/>
                   <Component id="sp_double" max="32767" attributes="0"/>
@@ -59,13 +59,9 @@
                   </Group>
                   <Component id="fld_double" alignment="0" max="32767" attributes="0"/>
                   <Component id="lbl_double" alignment="0" max="32767" attributes="0"/>
+                  <Component id="pnl_buttons" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-              <Component id="pnl_buttons" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,6 +105,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_double">
+      <Properties>
+        <Property name="actionCommand" type="java.lang.String" value="null"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="sp_double">
     </Component>
@@ -120,52 +119,92 @@
     <Component class="javax.swing.JTextField" name="fld_e0">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e0"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e0.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e1">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e1"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e1.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e2">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e2"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e2.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e3">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e3"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e3.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e4">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e4"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e4.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e5">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e5"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e5.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e6">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e6"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e6.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e7">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e7"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e7.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e8">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e8"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e8.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="fld_e9">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="actionCommand" type="java.lang.String" value="e9"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="fld_e9.addKeyListener(listener);&#xa;"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JSeparator" name="sp_e9">
     </Component>
@@ -182,12 +221,18 @@
             <Property name="text" type="java.lang.String" value="&#x41f;&#x435;&#x440;&#x435;&#x442;&#x432;&#x43e;&#x440;&#x438;&#x442;&#x438;"/>
             <Property name="actionCommand" type="java.lang.String" value="btn_convert"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_convertActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_clean">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#x41e;&#x447;&#x438;&#x441;&#x442;&#x438;&#x442;&#x438; &#x43f;&#x43e;&#x43b;&#x44f;"/>
             <Property name="actionCommand" type="java.lang.String" value="btn_clean"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_convertActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
