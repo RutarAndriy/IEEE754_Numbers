@@ -4,6 +4,7 @@ package com.rutar.ieee754_numbers;
 
 import java.math.*;
 import at.syntaxerror.ieee754.binary.*;
+import java.util.Arrays;
 
 /**
  * Клас IEEE754_Numbers
@@ -28,6 +29,14 @@ public static byte[] doubleToExtendedBytes (double value) {
     
     byte[] bytes = Binary80.CODEC.encode(Binary80
                            .FACTORY.create(value)).toByteArray();
+    
+    if (bytes.length > 10) { 
+        byte[] temp = new byte[10];
+        int tLen = temp.length - 1;
+        int bLen = bytes.length - 1;
+        for (int z = 0; z < 10; z++) { temp[tLen - z] = bytes[bLen - z]; }
+        bytes = temp;
+    }
     
     if (bytes.length != 10) {
         byte[] temp = new byte[10];
