@@ -9,6 +9,7 @@ import java.awt.event.*;
 import static javax.swing.JOptionPane.*;
 import static com.rutar.ieee754_numbers.IEEE754_Numbers.*;
 import java.lang.reflect.Field;
+import java.util.HexFormat;
 
 /**
  * Клас IEEE754_Numbers_Demo.
@@ -258,7 +259,21 @@ public IEEE754_Numbers_Demo() { initComponents(); }
     // Extended -> double .....................................................
     else { 
     
+    String value;
+    extendedNumber = new byte[10];
+    HexFormat hex = HexFormat.of();
+        
+    for (int z = 0; z < 10; z++) {
+        JTextField field = getField("e" + z);
+        value = field.getText();
+        try { extendedNumber[z] = hex.parseHex(value)[0]; }
+        catch (Exception e) {
+            String message = "Некоректне hex-число: " + value;
+            showErrorMessage(message, field);
+            break; } }
     
+    double result = extendedBytesToDouble(extendedNumber);
+    fld_double.setText(Double.toString(result));
     
     } } }
     }//GEN-LAST:event_btn_convertActionPerformed

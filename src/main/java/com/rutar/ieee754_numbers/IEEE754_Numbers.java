@@ -26,8 +26,18 @@ public class IEEE754_Numbers {
  */
 public static byte[] doubleToExtendedBytes (double value) {
     
-    return reverseArray(Binary80.CODEC
-          .encode(Binary80.FACTORY.create(value)).toByteArray());
+    byte[] bytes = Binary80.CODEC.encode(Binary80
+                           .FACTORY.create(value)).toByteArray();
+    
+    if (bytes.length != 10) {
+        byte[] temp = new byte[10];
+        for (int z = 0; z < 10; z++) {
+            if (z < bytes.length) { temp[z] = bytes[z]; }
+            else                  { temp[z] = 0; } }
+        bytes = temp;
+    }
+    
+    return reverseArray(bytes);
 
 }
 
